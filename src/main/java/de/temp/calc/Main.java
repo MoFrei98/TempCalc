@@ -12,26 +12,32 @@ public class Main {
     private static final double FAHRENHEIT_CAP = -459.67;
 
     public static void main(String[] args) {
-        boolean askForValue = true;
-        double value = 0;
-        while (askForValue) {
+        boolean runApp = true;
+        while (runApp) {
             Scanner scan = new Scanner(System.in);
-            System.out.print("Enter temperature value: ");
-            String strVal = scan.nextLine();
-            try {
-              value = Double.parseDouble(strVal);
-              askForValue = false;
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid input. Please enter a valid temperature value.");
+            boolean askForValue = true;
+            double value = 0;
+            while (askForValue) {
+                System.out.print("Enter temperature value: ");
+                String strVal = scan.nextLine();
+                try {
+                    value = Double.parseDouble(strVal);
+                    askForValue = false;
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid input. Please enter a valid temperature value.");
+                }
             }
+
+            String sourceUnit = getUnit("Enter source unit").toUpperCase();
+            String targetUnit = getUnit("Enter target unit").toUpperCase();
+
+            double convertedValue = convertTemperature(value, sourceUnit, targetUnit);
+
+            System.out.println(value + " °" + sourceUnit + " is equal to " + convertedValue + " °" + targetUnit);
+
+            System.out.println("Convert another temperature? (Y/n)");
+            runApp = !scan.nextLine().equalsIgnoreCase("n");
         }
-
-        String sourceUnit = getUnit("Enter source unit").toUpperCase();
-        String targetUnit = getUnit("Enter target unit").toUpperCase();
-
-        double convertedValue = convertTemperature(value, sourceUnit, targetUnit);
-
-        System.out.println(value + " °" + sourceUnit + " is equal to " + convertedValue + " °" + targetUnit);
     }
 
     private static String getUnit(String askText) {
