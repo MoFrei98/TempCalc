@@ -2,11 +2,14 @@ package de.temp.calc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
 
     private static final ArrayList<String> UNITS = new ArrayList<>(Arrays.asList("C", "F"));
+    private static final double CELSIUS_CAP = -273.15;
+    private static final double FAHRENHEIT_CAP = -459.67;
 
     public static void main(String[] args) {
         boolean askForValue = true;
@@ -57,8 +60,14 @@ public class Main {
 
     private static double convertTemperature(double value, String sourceUnit, String targetUnit) {
         if (sourceUnit.equals("C") && targetUnit.equals("F")) {
+            if (value < CELSIUS_CAP) {
+                throw new InputMismatchException("Temperature in Celsius cannot be below absolute zero (-273.15 °C)");
+            }
             return (value * 9/5) + 32;
         } else if (sourceUnit.equals("F") && targetUnit.equals("C")) {
+            if (value < FAHRENHEIT_CAP) {
+                throw new InputMismatchException("Temperature in Fahrenheit cannot be below absolute zero (-459.67 °F)");
+            }
             return (value - 32) * 5/9;
         } else {
             return value; // No conversion needed
