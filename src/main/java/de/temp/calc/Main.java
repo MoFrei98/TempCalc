@@ -58,20 +58,26 @@ public class Main {
         return unit;
     }
 
-    private static double convertTemperature(double value, String sourceUnit, String targetUnit) {
-        if (sourceUnit.equals("C") && targetUnit.equals("F")) {
-            if (value < CELSIUS_CAP) {
-                throw new InputMismatchException("Temperature in Celsius cannot be below absolute zero (-273.15 °C)");
+    private static double convertTemperature(double temp, String sourceUnit, String targetUnit) {
+        double convertedTemp = 0;
+        try {
+            if (sourceUnit.equals("C") && targetUnit.equals("F")) {
+                if (temp < CELSIUS_CAP) {
+                    throw new InputMismatchException("Temperature in Celsius cannot be below absolute zero (-273.15 °C)");
+                }
+                convertedTemp = (temp * 9/5) + 32;
+            } else if (sourceUnit.equals("F") && targetUnit.equals("C")) {
+                if (temp < FAHRENHEIT_CAP) {
+                    throw new InputMismatchException("Temperature in Fahrenheit cannot be below absolute zero (-459.67 °F)");
+                }
+                convertedTemp = (temp - 32) * 5/9;
+            } else {
+                convertedTemp =  temp; // No conversion needed
             }
-            return (value * 9/5) + 32;
-        } else if (sourceUnit.equals("F") && targetUnit.equals("C")) {
-            if (value < FAHRENHEIT_CAP) {
-                throw new InputMismatchException("Temperature in Fahrenheit cannot be below absolute zero (-459.67 °F)");
-            }
-            return (value - 32) * 5/9;
-        } else {
-            return value; // No conversion needed
+        } catch (Exception e) {
+            System.err.println("Error converting temperature value: " + e.getMessage());
         }
+        return convertedTemp;
     }
 
 
