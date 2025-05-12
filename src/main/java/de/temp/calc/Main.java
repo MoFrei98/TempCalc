@@ -19,9 +19,13 @@ public class Main {
 
     /**
      * Liste der unterstützten Temperatureinheiten
-     * C = Celsius, F = Fahrenheit
+     * C = Celsius,
+     * F = Fahrenheit
      */
-    private static final ArrayList<String> UNITS = new ArrayList<>(Arrays.asList("C", "F"));
+    private static final ArrayList<String> UNITS = new ArrayList<>(Arrays.asList(
+            "C",
+            "F"
+    ));
 
     /**
      * Absoluter Nullpunkt in Celsius (-273,15 °C)
@@ -124,7 +128,7 @@ public class Main {
      * @return Der umgerechnete Temperaturwert in der Zieleinheit
      * @throws InputMismatchException Wenn die Temperatur unter dem absoluten Nullpunkt liegt
      */
-    private static double convertTemperature(double temp, String sourceUnit, String targetUnit) {
+    public static double convertTemperature(double temp, String sourceUnit, String targetUnit) {
         double convertedTemp = 0;
         try {
             // Umrechnung von Celsius nach Fahrenheit
