@@ -156,6 +156,7 @@ public class Main {
         } catch (Exception e) {
             // Fehlerbehandlung bei der Temperaturumrechnung
             System.err.println("Error converting temperature value: " + e.getMessage());
+            throw e;
         }
         return convertedTemp;
     }
