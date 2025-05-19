@@ -1,6 +1,6 @@
 # TempCalc
 
-Konsolenanwendung zur Umrechnung von Temperaturen zwischen Celsius und Fahrenheit.  
+Javabasierte Konsolenanwendung zur Umrechnung von Temperaturen zwischen Celsius und Fahrenheit.  
 Das Programm liest vom Nutzer einen Temperaturwert sowie Quell- und Zieleinheit ein, validiert Eingaben (inkl. Check auf absoluten Nullpunkt) und gibt das Ergebnis aus.
 
 ---
@@ -86,21 +86,23 @@ Convert another temperature? (Y/n) n
 
 ## Tests
 
+### Unit-Tests
 JUnit 5-Tests liegen in `src/test/java/MainTest.java`.  
 Um die Tests auszuführen:
-
 ```bash
 ./gradlew test
 ```
 
 Erwartete Tests:
-
 - `testConvertCelsiusToFahrenheit()`  
 - `testConvertFahrenheitToCelsius()`  
 - `testNoConversionSameUnit()`  
 - `testCelsiusBelowAbsoluteZero()`  
 - `testFahrenheitBelowAbsoluteZero()`  
 
+### Durchgeführte Blackbox-Tests
+- add here
+- 
 ---
 
 ## Autoren
@@ -108,8 +110,4 @@ Erwartete Tests:
 - Morris Freihoff  
 - Artem Grauberger  
 - Tajan Biazevic  
-- Sinan Isikgel  
-
----
-
-## Lizenz
+- Sinan Isikgel
