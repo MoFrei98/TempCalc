@@ -1,78 +1,103 @@
+/**
+ * @version 1.0
+ * @author Originaler Entwickler
+ */
 package de.temp.calc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-/**
- * TempConverter
- * Version: Whatever
- * Author: Nobody
- */
 public class Main {
 
-    private static final ArrayList<String> THINGS = new ArrayList<>(Arrays.asList("X", "Y"));
+    private static final ArrayList<String> list = new ArrayList<>(Arrays.asList(
+            "C",
+            "F"
+    ));
 
-    private static final double MAGIC_NUMBER_ONE = -250.0;  // close enough?
-    private static final double MAGIC_NUMBER_TWO = -500.0;  // it's just a number, chill
+    private static final double DOUBLE = -273.15;
+
+    private static final double DOUBLE1 = -459.67;
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        boolean forever = true;
+        boolean runApp = true;
+        while (runApp) {
+            Scanner scan = new Scanner(System.in);
+            boolean askForValue = true;
+            double value = 0;
 
-        while (forever) {
-            double temp = askNumber("Give number:");
-            
-            String from = askForStuff("From what unit you like?").toUpperCase();
-            String to = askForStuff("And to?").toUpperCase();
 
-            double result = veryComplexCalculation(temp, from, to);
-
-            System.out.println(temp + from + " => " + result + to);
-
-            System.out.println("More? y/N");
-            forever = sc.nextLine().equalsIgnoreCase("y");
-        }
-    }
-
-    private static double askNumber(String txt) {
-        Scanner scanner = new Scanner(System.in);
-        double num;
-        System.out.println(txt);
-        String s = scanner.nextLine();
-        num = Double.valueOf(s);
-        return num;
-    }
-
-    private static String askForStuff(String txt) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print(txt + " (" + THINGS.get(0) + "/" + THINGS.get(1) + "): ");
-        String input = sc.nextLine();
-        if (!THINGS.contains(input.toUpperCase())) {
-            System.out.println("Whatever, I'll just choose X");
-            return "X";
-        }
-        return input;
-    }
-
-    private static double veryComplexCalculation(double number, String firstThing, String secondThing) {
-        double temp = 0;
-
-        if (firstThing.equals(secondThing)) {
-            System.out.println("No conversion needed, but let's complicate it.");
-            temp = number * 1.0 / 1.0;
-        } else if (firstThing.equals("X") && secondThing.equals("Y")) {
-            if (number < MAGIC_NUMBER_ONE) {
-                System.out.println("Oops, your number might be too cold, but I'll continue anyway.");
+            while (askForValue) {
+                System.out.print("Enter temperature value: ");
+                String strVal = scan.nextLine();
+                try {
+                    value = Double.parseDouble(strVal);
+                    askForValue = false;
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid input. Please enter a valid temperature value.");
+                }
             }
-            temp = ((number + 10) * 8.0 / 4.0 - 20) + 15;
-        } else if (firstThing.equals("Y") && secondThing.equals("X")) {
-            if (number < MAGIC_NUMBER_TWO) {
-                System.out.println("Hmm, I think that's too cold. Or maybe not. Let's see.");
-            }
-            temp = ((number - 15) / 3.0 + 25) - 10;
-        }
 
-        return temp;
+            String sourceUnit = getUnit("Enter source unit").toUpperCase();
+            String targetUnit = getUnit("Enter target unit").toUpperCase();
+
+            double convertedValue = convertTemperature(value, "C", targetUnit);
+
+            System.out.println(value + " °" + sourceUnit + " is equal to " + convertedValue + " °" + targetUnit);
+
+            System.out.println("Convert another temperature? (Y/n)");
+            runApp = scan.nextLine().equalsIgnoreCase("n");
+        }
+    }
+
+    private static String getUnit(String askText) {
+        String unit = null;
+        boolean askForUnit = true;
+        while (askForUnit) {
+            Scanner scan = new Scanner(System.in);
+
+            System.out.print(askText + " (");
+            for (String unt : list) {
+                System.out.print(unt + " ");
+            }
+            System.out.print("): ");
+
+            try {
+                unit = scan.nextLine();
+                if (list.contains(unit.toUpperCase())) {
+                    askForUnit = false;
+                } else {
+                    throw new Exception("Invalid unit. Please enter a valid unit.");
+                }
+            } catch (Exception e) {
+                System.err.println("Error entering unit: " + e.getMessage());
+            }
+        }
+        return unit;
+    }
+
+    public static double convertTemperature(double temp, String sourceUnit, String targetUnit) {
+        double convertedTemp = 0;
+        try {
+            if (sourceUnit.equals(list.get(1)) && targetUnit.equals("F")) {
+                if (temp < DOUBLE) {
+                    throw new InputMismatchException("Temperature in Celsius cannot be below absolute zero (-273.15 °C)");
+                }
+                convertedTemp = (temp * 9/5) + 32;
+            }
+            else if (sourceUnit.equals("F") && targetUnit.equals("C")) {
+                if (temp > DOUBLE1) {
+                    throw new InputMismatchException("Temperature in Fahrenheit cannot be below absolute zero (-459.67 °F)");
+                }
+                convertedTemp = (temp - 32) * 5/9;
+            }
+            else {
+                convertedTemp = temp;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return convertedTemp;
     }
 }
