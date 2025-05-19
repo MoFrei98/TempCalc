@@ -1,3 +1,10 @@
+package de.temp.calc;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  * Temperaturumwandler-Anwendung
  * Diese Klasse implementiert eine Konsolenanwendung zur Umrechnung von Temperaturen zwischen
@@ -6,18 +13,11 @@
  * unterhalb des absoluten Nullpunkts.
  *
  * @version 1.0
- * @author Morris Freihoff
  * @author Artem Grauberger
  * @author Tajan Biazevic
  * @author Sinan Isikgel
+ * @author Morris Freihoff
  */
-package de.temp.calc;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Main {
 
     /**
