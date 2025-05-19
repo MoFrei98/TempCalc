@@ -6,7 +6,10 @@
  * unterhalb des absoluten Nullpunkts.
  *
  * @version 1.0
- * @author Originaler Entwickler
+ * @author Morris Freihoff
+ * @author Artem Grauberger
+ * @author Tajan Biazevic
+ * @author Sinan Isikgel
  */
 package de.temp.calc;
 
