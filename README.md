@@ -1,4 +1,3 @@
-```markdown
 # TempCalc
 
 Konsolenanwendung zur Umrechnung von Temperaturen zwischen Celsius und Fahrenheit.  
