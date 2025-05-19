@@ -12,8 +12,7 @@ Das Programm liest vom Nutzer einen Temperaturwert sowie Quell- und Zieleinheit 
 - [Nutzung](#nutzung)  
 - [Projektstruktur](#projektstruktur)  
 - [Tests](#tests)  
-- [Autoren](#autoren)  
-- [Lizenz](#lizenz)
+- [Autoren](#autoren)
 
 ---
 
